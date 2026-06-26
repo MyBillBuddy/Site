@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MyBillBuddy — Bill Management App</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: linear-gradient(160deg, #ffffff 0%, #dbeafe 50%, #bfdbfe 100%);
+      min-height: 100vh;
+      color: #1e293b;
+    }
+
+    a { color: #2563eb; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    .container {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* NAV */
+    nav {
+      padding: 20px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .nav-logo {
+      font-size: 20px;
+      font-weight: 700;
+      color: #1e293b;
+    }
+    .nav-links {
+      display: flex;
+      gap: 24px;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 14px;
+      color: #475569;
+      font-weight: 500;
+    }
+    .nav-links a:hover { color: #2563eb; text-decoration: none; }
+
+    /* CARD */
+    .card {
+      background: rgba(255, 255, 255, 0.65);
+      border: 1px solid rgba(255, 255, 255, 0.95);
+      border-radius: 20px;
+      padding: 40px;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 4px 24px rgba(37, 99, 235, 0.08);
+      margin-bottom: 24px;
+    }
+
+    /* HERO */
+    .hero {
+      text-align: center;
+      padding: 60px 0 40px;
+    }
+    .hero h1 {
+      font-size: 42px;
+      font-weight: 700;
+      color: #1e293b;
+      margin-bottom: 16px;
+      line-height: 1.2;
+    }
+    .hero h1 span { color: #2563eb; }
+    .hero p {
+      font-size: 18px;
+      color: #475569;
+      line-height: 1.6;
+      max-width: 540px;
+      margin: 0 auto 32px;
+    }
+    .badge {
+      display: inline-block;
+      background: rgba(37, 99, 235, 0.1);
+      border: 1px solid rgba(37, 99, 235, 0.25);
+      color: #2563eb;
+      font-size: 13px;
+      font-weight: 600;
+      padding: 6px 16px;
+      border-radius: 100px;
+      margin-bottom: 20px;
+    }
+    .app-store-btn {
+      display: inline-block;
+      background: #1e293b;
+      color: #ffffff;
+      padding: 14px 32px;
+      border-radius: 14px;
+      font-size: 16px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: opacity 0.2s;
+    }
+    .app-store-btn:hover { opacity: 0.85; text-decoration: none; }
+
+    /* SECTIONS */
+    section { padding: 20px 0; }
+    .section-title {
+      font-size: 26px;
+      font-weight: 700;
+      color: #1e293b;
+      margin-bottom: 20px;
+    }
+
+    /* FEATURES */
+    .features-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    .feature {
+      background: rgba(255, 255, 255, 0.65);
+      border: 1px solid rgba(255, 255, 255, 0.95);
+      border-radius: 16px;
+      padding: 24px;
+      backdrop-filter: blur(12px);
+    }
+    .feature-icon {
+      font-size: 28px;
+      margin-bottom: 10px;
+    }
+    .feature h3 {
+      font-size: 15px;
+      font-weight: 600;
+      color: #1e293b;
+      margin-bottom: 6px;
+    }
+    .feature p {
+      font-size: 13px;
+      color: #475569;
+      line-height: 1.5;
+    }
+
+    /* FAQ */
+    .faq-item {
+      border-bottom: 1px solid rgba(148, 163, 184, 0.3);
+      padding: 20px 0;
+    }
+    .faq-item:last-child { border-bottom: none; }
+    .faq-item h3 {
+      font-size: 15px;
+      font-weight: 600;
+      color: #1e293b;
+      margin-bottom: 8px;
+    }
+    .faq-item p {
+      font-size: 14px;
+      color: #475569;
+      line-height: 1.6;
+    }
+
+    /* POLICY */
+    .policy-content h3 {
+      font-size: 16px;
+      font-weight: 600;
+      color: #1e293b;
+      margin: 24px 0 8px;
+    }
+    .policy-content h3:first-child { margin-top: 0; }
+    .policy-content p {
+      font-size: 14px;
+      color: #475569;
+      line-height: 1.7;
+      margin-bottom: 12px;
+    }
+    .policy-date {
+      font-size: 13px;
+      color: #94a3b8;
+      margin-bottom: 20px;
+    }
+
+    /* CONTACT */
+    .contact-email {
+      display: inline-block;
+      background: rgba(37, 99, 235, 0.1);
+      border: 1px solid rgba(37, 99, 235, 0.25);
+      color: #2563eb;
+      padding: 12px 24px;
+      border-radius: 12px;
+      font-weight: 600;
+      font-size: 15px;
+      margin-top: 8px;
+    }
+    .contact-email:hover { text-decoration: none; background: rgba(37, 99, 235, 0.15); }
+
+    /* FOOTER */
+    footer {
+      text-align: center;
+      padding: 40px 0;
+      font-size: 13px;
+      color: #94a3b8;
+    }
+
+    @media (max-width: 540px) {
+      .hero h1 { font-size: 30px; }
+      .features-grid { grid-template-columns: 1fr; }
+      .card { padding: 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+
+    <!-- NAV -->
+    <nav>
+      <span class="nav-logo">MyBillBuddy</span>
+      <ul class="nav-links">
+        <li><a href="#features">Features</a></li>
+        <li><a href="#faq">FAQ</a></li>
+        <li><a href="#privacy">Privacy</a></li>
+        <li><a href="#terms">Terms</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero">
+      <div class="badge">Available on the App Store</div>
+      <h1>Your bills,<br /><span>always under control.</span></h1>
+      <p>MyBillBuddy is a simple and powerful bill management app designed to help you stay on top of your finances, never miss a due date, and take control of your monthly payments — all in one place.</p>
+      <a href="https://apps.apple.com" class="app-store-btn">Download on the App Store</a>
+    </section>
+
+    <!-- FEATURES -->
+    <section id="features">
+      <div class="card">
+        <h2 class="section-title">Everything you need</h2>
+        <div class="features-grid">
+          <div class="feature">
+            <div class="feature-icon">📋</div>
+            <h3>Bill Tracking</h3>
+            <p>Add all your bills with name, amount, and due date in one place.</p>
+          </div>
+          <div class="feature">
+            <div class="feature-icon">🔔</div>
+            <h3>Smart Reminders</h3>
+            <p>Get notified before due dates so you never miss a payment.</p>
+          </div>
+          <div class="feature">
+            <div class="feature-icon">✅</div>
+            <h3>Mark as Paid</h3>
+            <p>Track what's paid and what's pending with a single tap.</p>
+          </div>
+          <div class="feature">
+            <div class="feature-icon">📅</div>
+            <h3>Payment History</h3>
+            <p>View your full payment history and stay on top of your finances.</p>
+          </div>
+          <div class="feature">
+            <div class="feature-icon">🔄</div>
+            <h3>Recurring Bills</h3>
+            <p>Set up recurring bills and let MyBillBuddy handle the scheduling.</p>
+          </div>
+          <div class="feature">
+            <div class="feature-icon">📊</div>
+            <h3>Monthly Summary</h3>
+            <p>See your total monthly bills at a glance on the home screen.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq">
+      <div class="card">
+        <h2 class="section-title">Frequently Asked Questions</h2>
+        <div class="faq-item">
+          <h3>How do I add a bill?</h3>
+          <p>Tap the "+" button on the home screen, fill in the bill name, amount, due date, and category, then tap Save.</p>
+        </div>
+        <div class="faq-item">
+          <h3>How do I set up notifications?</h3>
+          <p>When creating or editing a bill, enable the reminder toggle and choose how many days before the due date you'd like to be notified.</p>
+        </div>
+        <div class="faq-item">
+          <h3>How do I mark a bill as paid?</h3>
+          <p>On the home screen, tap the bill and use the "Mark as Paid" button. You can also undo this at any time.</p>
+        </div>
+        <div class="faq-item">
+          <h3>Can I use MyBillBuddy on multiple devices?</h3>
+          <p>Yes — your data is synced to your account so you can access it on any device you're signed in to.</p>
+        </div>
+        <div class="faq-item">
+          <h3>How do I cancel my subscription?</h3>
+          <p>You can manage and cancel your subscription through your App Store account settings at any time.</p>
+        </div>
+        <div class="faq-item">
+          <h3>I have another question.</h3>
+          <p>Reach out to us at <a href="mailto:mybillbuddyapp@gmail.com">mybillbuddyapp@gmail.com</a> and we'll get back to you.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- PRIVACY POLICY -->
+    <section id="privacy">
+      <div class="card">
+        <h2 class="section-title">Privacy Policy</h2>
+        <p class="policy-date">Last Updated: June 2026</p>
+        <div class="policy-content">
+          <h3>Information We Collect</h3>
+          <p>We collect information you provide directly to us, such as your name, email address, and bill data. We also collect usage data to improve the app experience.</p>
+
+          <h3>How We Use Your Information</h3>
+          <p>We use your information to provide and improve MyBillBuddy, send you notifications you've requested, and respond to your support requests.</p>
+
+          <h3>Data Storage & Security</h3>
+          <p>Your data is encrypted and stored securely. We do not sell, trade, or rent your personal information to third parties.</p>
+
+          <h3>Payment Information</h3>
+          <p>MyBillBuddy does not store your payment information. All purchases are processed by Apple and governed by Apple's privacy policy.</p>
+
+          <h3>Your Rights</h3>
+          <p>You can access, update, or delete your data at any time through your account settings in the app.</p>
+
+          <h3>Contact</h3>
+          <p>If you have questions about this Privacy Policy, contact us at <a href="mailto:mybillbuddyapp@gmail.com">mybillbuddyapp@gmail.com</a>.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- TERMS -->
+    <section id="terms">
+      <div class="card">
+        <h2 class="section-title">Terms of Use</h2>
+        <p class="policy-date">Last Updated: June 2026</p>
+        <div class="policy-content">
+          <h3>Acceptance of Terms</h3>
+          <p>By downloading or using MyBillBuddy, you agree to these Terms of Use. If you do not agree, please do not use the app.</p>
+
+          <h3>Use of the App</h3>
+          <p>MyBillBuddy is for personal, non-commercial use only. You are responsible for maintaining the security of your account.</p>
+
+          <h3>Subscriptions</h3>
+          <p>MyBillBuddy offers optional premium subscriptions. Subscriptions auto-renew unless cancelled at least 24 hours before the end of the current period. You can manage and cancel subscriptions through your App Store account settings.</p>
+
+          <h3>Disclaimer</h3>
+          <p>MyBillBuddy is provided "as is" without warranties of any kind. We are not responsible for any financial decisions made based on information in the app.</p>
+
+          <h3>Changes to Terms</h3>
+          <p>We may update these terms from time to time. Continued use of the app after changes constitutes acceptance of the new terms.</p>
+
+          <h3>Contact</h3>
+          <p>For questions about these Terms, contact us at <a href="mailto:mybillbuddyapp@gmail.com">mybillbuddyapp@gmail.com</a>.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact">
+      <div class="card" style="text-align: center;">
+        <h2 class="section-title">Get in Touch</h2>
+        <p style="color: #475569; font-size: 15px; margin-bottom: 16px;">Have a question or need support? We're here to help.</p>
+        <a href="mailto:mybillbuddyapp@gmail.com" class="contact-email">mybillbuddyapp@gmail.com</a>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+      <p>© 2026 MyBillBuddy. All rights reserved.</p>
+    </footer>
+
+  </div>
+
+</body>
+</html>
